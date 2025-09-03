@@ -16,11 +16,11 @@
       font-family: 'Fira Mono', 'Consolas', 'Monaco', monospace;
     }
     header {
-      background: #67EA94;
+      background: none;
       color: #fff;
       text-align: center;
-      padding: 1em 0 0.5em 0;
-      border-bottom: 2px solid #43b86c;
+      padding: 0;
+      border-bottom: none;
     }
     .ascii-header {
       font-size: 1em;
@@ -40,12 +40,12 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      background: var(--bg, #222);
+      background: #181a20; 
       padding: 0.5em 0;
-      border-bottom: 1px solid #333;
+      border-bottom: none;
     }
     nav a, nav .dropdown > button {
-      color: var(--fg, #e0e0e0);
+      color: #7ee787 !important;
       text-decoration: none;
       margin: 0 0.5em;
       padding: 0.5em 1em;
@@ -54,6 +54,15 @@
       cursor: pointer;
       font-size: 1em;
       font-family: inherit;
+    }
+    a {
+      color: #7ee787 !important;
+    }
+    a:visited {
+      color: #7ee787 !important;
+    }
+    a:hover, a:active, a:focus {
+      color: #43b86c !important;
     }
     .dropdown {
       position: relative;
@@ -71,7 +80,7 @@
     .dropdown-content a {
       display: block;
       padding: 0.5em 1em;
-      color: var(--fg, #e0e0e0);
+      color: #7ee787 !important;
       text-decoration: none;
       background: var(--bg, #222);
     }
@@ -94,7 +103,9 @@
 </head>
 <body>
   <header>
-    <pre class="ascii-header">
+  <div style="display: flex; align-items: flex-start;">
+    <img src="assets/icon.png" alt="VBMesh Logo" style="height: 9em; margin-left: 2em; margin-right: 1em;">
+    <pre class="ascii-header" style="flex: 1; margin-top:0;">
  ___      ___  ________   _____ ______    _______    ________   ___  ___        ________    _______   _________   
 |\  \    /  /||\   __  \ |\   _ \  _   \ |\  ___ \  |\   ____\ |\  \|\  \      |\   ___  \ |\  ___ \ |\___   ___\ 
 \ \  \  /  / /\ \  \|\ /_\ \  \\\__\ \  \\ \   __/| \ \  \___|_\ \  \\\  \     \ \  \\ \  \\ \   __/|\|___ \  \_| 
@@ -104,7 +115,8 @@
     \|__|/        \|_______| \|__|     \|__| \|_______||\_________\\|__|\|__|\|__| \|__| \|__| \|_______|    \|__|
                                                        \|_________|                                               
     </pre>
-    <h1 style="text-align:left; margin-left:1em;">VBMesh.net</h1>
+  </div>
+  <h1 style="text-align:left; margin-left:1em;">VBMesh.net</h1>
     
   </header>
   <nav>
@@ -133,9 +145,18 @@
     </a>
   </nav>
   <main>
-    <!-- Fill in your homepage content here -->
     <h2>Welcome to VBMesh.net</h2>
-    <p>This is your homepage. Add your content here.</p>
+    <p>Welcome to the mesh!
+    This is the official documentation site for VBMesh, a community-driven wireless mesh network.
+    <br><br>
+    Looking to connect with fellow users? <a href="https://discord.gg/63kj8y7D" target="_blank">Join our Discord!</a>
+    <br><br>
+    Looking to get a node? Check out our hardware recommendations on the <a href="../pages/devices.html">Devices</a> page.
+    <br><br>
+    Want to connect your node to the mesh? Check out the <a href="../pages/join.html">Join</a> page for instructions.
+    <br><br>
+    Found a device? Let us know. If you need it removed, please <a href="../pages/contact.html">contact an admin</a>
+     </p>
   </main>
 </body>
 </html>
