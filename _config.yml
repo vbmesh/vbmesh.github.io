@@ -1,0 +1,6 @@
+title: VBMesh.net
+description: Community-driven wireless mesh network documentation
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://vbmesh.net" # your site URL
+markdown: kramdown
+theme: minima
