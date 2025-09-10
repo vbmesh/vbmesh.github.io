@@ -8,15 +8,21 @@ title: Setup
   Want to show up on the Mesh Map? Follow these steps to set up your node:
   <br><br>
   <h3>Channels: </h3>
-  Select "Uplink enabled" in your primary channel to share info about other nodes seen, given that they have "okay to mqtt" enabled.
+  Select "Uplink enabled" in your primary channel (for most, this is probably LongFast)to share info about other nodes seen, given that they have "okay to mqtt" enabled.
   <br><br>
   <h3>Device:</h3>
-  - Role: select "client" or "client mute" 
-  <h3>Lora Settings: </h3>
-  - Number of Hops: set this to 3 or 4. 4-5 hops can be okay if you are using a client_mute role.
-  - "OK to MQTT" turned on: this allows the packets sent from your node to be relayed to other nodes with mqtt, and if you want to show up on the map.
+  - Role: select "client" or "client_mute"
   <br><br>
-  <h3>MQTT Settings:</h3>
+  <h3>Location:</h3>
+  - Tip: if your node doesn't have a GPS module or is fixed (not mobile or handheld), turn on "fixed position", and enter the node's latitude and longitude.
+  <br><br>
+  <h3>Lora Settings: </h3>
+  - Modem Preset: LongFast <br><br>
+  - Region: US915 <br><br>
+  - Hop Limit: set this to 3 or 4. 4-5 hops can be okay if you are using a client_mute role.
+  - <b>"OK to MQTT" turned on: this allows the packets sent from your node to be relayed to other nodes with mqtt, and if you want to show up on the map.</b>
+  <br><br>
+  <h3>MQTT Settings: (follow these instructions to set up your node as a source for vbmesh data</h3>
     - Address: mqtt.vbmesh.net <br><br>
     - Port: 1883  <br><br>
     - User: meshdev  <br><br>
