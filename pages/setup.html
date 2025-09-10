@@ -7,10 +7,16 @@ title: Setup
 <p>
   Want to show up on the Mesh Map? Follow these steps to set up your node:
   <br><br>
-  <h3>Lora Settings: </h3>
-  - "OK to MQTT" turned on: this allows the packets sent from your node to be relayed to the vbmesh server
+  <h3>Channels: </h3>
+  Select "Uplink enabled" in your primary channel to share info about other nodes seen, given that they have "okay to mqtt" enabled.
   <br><br>
-  <h3>MQT Settings:</h3>
+  <h3>Device:</h3>
+  - Role: select "client" or "client mute" 
+  <h3>Lora Settings: </h3>
+  - Number of Hops: set this to 3 or 4. 4-5 hops can be okay if you are using a client_mute role.
+  - "OK to MQTT" turned on: this allows the packets sent from your node to be relayed to other nodes with mqtt, and if you want to show up on the map.
+  <br><br>
+  <h3>MQTT Settings:</h3>
     - Address: mqtt.vbmesh.net <br><br>
     - Port: 1883  <br><br>
     - User: meshdev  <br><br>
