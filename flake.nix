@@ -1,5 +1,5 @@
 {
-  description = "dev shell for Jekyll (windows95 theme)";
+  description = "dev shell for Jekyll";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
