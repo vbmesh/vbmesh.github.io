@@ -3,30 +3,559 @@ layout: default
 title: Setup
 ---
 
-<h2>Welcome to VBMesh.net</h2>
-<p>
-  Want to show up on the Mesh Map? Follow these steps to set up your node:
-  <br><br>
-  <h3>Channels: </h3>
-  Select "Uplink enabled" in your primary channel (for most, this is probably LongFast)to share info about other nodes seen, given that they have "okay to mqtt" enabled.
-  <br><br>
-  <h3>Device:</h3>
-  - Role: select "client" or "client_mute"
-  <br><br>
-  <h3>Location:</h3>
-  - Tip: if your node doesn't have a GPS module or is fixed (not mobile or handheld), turn on "fixed position", and enter the node's latitude and longitude.
-  <br><br>
-  <h3>Lora Settings: </h3>
-  - Modem Preset: LongFast <br><br>
-  - Region: US915 <br><br>
-  - Hop Limit: set this to 3 or 4. 4-5 hops can be okay if you are using a client_mute role.
-  - <b>"OK to MQTT" turned on: this allows the packets sent from your node to be relayed to other nodes with mqtt, and if you want to show up on the map.</b>
-  <br><br>
-  <h3>MQTT Settings: (follow these instructions to set up your node as a source for vbmesh data</h3>
-    - Address: mqtt.vbmesh.net <br><br>
-    - User: meshdev  <br><br>
-    - Password: large4cats  <br><br>
-    - Encryption enabled: yes  <br><br>
-    - Root topic: msh/US/VA/VBMesh  <br><br>
-    - Enable Proxy to Client to allow the node to get internet through your client  <br><br>
-</p>
+<div class="container-fluid py-4">
+
+    <section class="mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="h5 mb-2">Tips</h2>
+          <ul>
+            <li>Because most meshtastic devices are low power, they can be a little slow. Be patient when applying settings.</li>
+            <li>Changing most settings will trigger a reboot of your device upon saving, wait for that to finish before moving to other steps.</li>
+            <li>It is best to reconnect your client after a reboot. When using the Web Client, wait for it to confirm saving the setting, then simply refresh the page and reconnect.</li>
+            <li>After reconnecting, double check the settings you just changed.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-4">
+      <div class="card">
+        <div class="card-body">
+
+          <h2 class="h5 mb-2">Step 1: Flashing A New Device</h2>
+          <p class="mb-3">
+            When setting up a brand new device, it is best to start by flashing the latest firmware and then factory
+            resetting the device. When deciding what firmware version to pick, the latest beta will be the most
+            stable. But, for recently released devices, you may need the latest alpha version to fully support your
+            device. You can read through the full changelog for each version on <a
+              href="https://github.com/meshtastic/firmware/releases" target="_blank">Meshtastic's Firmware Github</a>
+          </p>
+          <p class=" mb-3">
+            To flash your device go to the <a href="https://flasher.meshtastic.org/">Meshtastic Web Flasher</a>,
+            select your device,the firmware version and click "flash". A changelog dialog may pop up that you will
+            need to scroll past to click "continue". Once on the flashing dialog, follow it's instructions. If your
+            device supports "Full Erase and Install", it should be enabled to ensure any older settings for older
+            firmware do not impact operation on the new firmware.
+          </p>
+          <p class="mb-3">
+            Once the device has been flashed it should reboot.
+          </p>
+          <div class="alert alert-warning d-flex align-items-start gap-2">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <div>
+              After reconnecting, if your device did not have a "Full Erase and Install" option, perform a "Factory
+              Reset".
+            </div>
+          </div>
+
+          <div class="accordion" id="flashAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed d-flex align-items-start gap-2" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#flashFactoryReset">
+                  <i class="bi bi-arrow-repeat"></i>
+                  <strong>Factory Reset</strong>
+                </button>
+              </h2>
+              <div id="flashFactoryReset" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <p class="mb-3">
+                    With your device connected to your computer over USB Serial, open the <a
+                      href="https://client.meshtastic.org">Meshtastic Web Client</a> and start a Serial connection.
+                  </p>
+                  <p class="node-menu-nav"><strong>Navigate:</strong>
+                    Command Menu → Factory Reset</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-4">
+      <div class="card">
+        <div class="card-body">
+
+          <h2 class="h5 mb-2">Step 2: Giving The Device a Name</h2>
+          <p class="mb-3">
+            Many guides start by setting the LoRa Region and Preset, and while this is the fastest way to get started,
+            it isn't the most ideal set up. There are some settings that should be changed before your node announces
+            itself to the world.
+          </p>
+          <p class="mb-3">
+            With your device connected to your computer over USB Serial, open the <a
+              href="https://client.meshtastic.org">Meshtastic Web Client</a> and start a Serial connection.
+          </p>
+
+          <p class="node-menu-nav"><strong>Navigate:</strong> Change Device Name</p>
+          <dl class="row">
+            <dt class="col-sm-3">Long Name</dt>
+            <dd class="col-sm-9">The full name of your node.</dd>
+
+            <dt class="col-sm-3">Short Name</dt>
+            <dd class="col-sm-9">A short (max 4 character) name for your node.</dd>
+          </dl>
+          <p><strong>Click:</strong> Save</p>
+
+          <div class="accordion" id="namesAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed d-flex align-items-start gap-2" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#namesBestPractices">
+                  <i class="bi bi-hand-thumbs-up-fill"></i>
+                  <strong>Best Practices</strong>
+                </button>
+              </h2>
+              <div id="namesBestPractices" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <p class="mb-3">
+                    Choose a name that uniquely identifies your device on the mesh. If you'd like to stay mostly
+                    anonymous on
+                    the mesh, leaving the default name is totally OK. Generic names like "My Client" or "Car Node"
+                    should be
+                    avoided unless you include a random extra set of characters to differentiate your node from anyone
+                    else
+                    who may also choose a simialr name. For extra fun, Long and Short Names support unicode emojis!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed d-flex align-items-start gap-2" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#namesInfraNodes">
+                  <i class="bi bi-router"></i>
+                  <strong>Infrastructure Nodes</strong>
+                </button>
+              </h2>
+              <div id="namesInfraNodes" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <p class="mb-3">
+                    When choosing a name for an infrastructure node, please include something that can identify who
+                    maintains the node. That way if there are issues, the maintainer can be notified.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-4">
+      <div class="card">
+        <div class="card-body">
+
+          <h2 class="h5 mb-2">Step 3: Setting Up Bluetooth</h2>
+          <p class="mb-3">
+            Bluetooth is the most common low power way of connecting to a node.
+          </p>
+          <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+            Radio Config → Bluetooth</p>
+          <dl class="row">
+            <dt class="col-sm-3">Enabled</dt>
+            <dd class="col-sm-9">On</dd>
+
+
+            <dt class="col-sm-3">Pairing Mode</dt>
+            <dd class="col-sm-9">Fixed Pin</dd>
+
+
+            <dt class="col-sm-3">PIN</dt>
+            <dd class="col-sm-9">A random 6 digit PIN.</dd>
+          </dl>
+          <p><strong>Click:</strong> Save</p>
+
+          <div class="alert alert-danger d-flex align-items-start gap-2">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <div>
+              Do not use an easy to guess PIN like 000000 or 123456.
+            </div>
+          </div>
+
+          <div class="alert alert-primary d-flex align-items-start gap-2">
+            <i class="bi bi-check-circle-fill"></i>
+            <div>
+              Save your PIN in a password manager for safe keeping.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-4">
+      <div class="card">
+        <div class="card-body">
+
+          <h2 class="h5 mb-2">Step 4: Generating a New Private Key</h2>
+          <p class="mb-3">
+            It is important to ensure your node has a unique and securely generated private key. This is because your
+            private/public keypair is how other clients know your node is owned by you.
+          </p>
+          <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+            Radio Config → Security</p>
+          <p><strong>Click:</strong> Generate button</p>
+          <p><strong>Click:</strong> Save</p>
+
+          <div class="alert alert-danger d-flex align-items-start gap-2">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <div>
+              Never share your private key with someone.
+            </div>
+          </div>
+
+          <div class="alert alert-primary d-flex align-items-start gap-2">
+            <i class="bi bi-check-circle-fill"></i>
+            <div>
+              Backup your private key by clicking the Backup Key button, or copy-pasting into a password manager. This
+              is useful if you ever need to factory reset your device.
+            </div>
+          </div>
+
+          <div class="accordion" id="securityAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed d-flex align-items-start gap-2" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#securityRemoteAdmin">
+                  <i class="bi bi-router"></i>
+                  <strong>Infrastructure Nodes / Remote Administration</strong>
+                </button>
+              </h2>
+              <div id="securityRemoteAdmin" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <p class="mb-3">
+                    Setting up Remote Administration is a great way to maintain Infrastructure nodes that may not be
+                    easily accessible. To set this up, enter your <strong>primary client's PUBLIC key</strong> into
+                    one of the Admin Key settings.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed d-flex align-items-start gap-2" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#securityHistory">
+                  <i class="bi bi-book-half"></i>
+                  <strong>History</strong>
+                </button>
+              </h2>
+              <div id="securityHistory" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <p class="mb-3">
+                    At one point, device manufacturers has mistakenly pre-configured their devices with the same
+                    private key. This meant there were tons of devices with the same private key, breaking their
+                    security. This is partly why it is best to factory reset a new device and manually generate a new
+                    key.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-4">
+      <div class="card">
+        <div class="card-body">
+
+          <h2 class="h5 mb-2">Step 5: Joining The Mesh</h2>
+          <p class="mb-3">
+            It is finally time to enable your radio and join the mesh!
+          </p>
+          <div class="alert alert-warning d-flex align-items-start gap-2">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <div>
+              Be sure an antenna is connected to your device. Transmitting without an antenna attached can damage your
+              radio.
+            </div>
+          </div>
+          <p class="node-menu-nav"><strong>Navigate:</strong> Config → Radio Config → LoRa</p>
+          <dl class="row">
+            <dt class="col-sm-3">Region</dt>
+            <dd class="col-sm-9">US</dd>
+
+            <dt class="col-sm-3">Use Preset</dt>
+            <dd class="col-sm-9">On</dd>
+
+            <dt class="col-sm-3">Preset</dt>
+            <dd class="col-sm-9">Long Fast</dd>
+
+            <dt class="col-sm-3">Frequency Slot</dt>
+            <dd class="col-sm-9">0</dd>
+
+            <dt class="col-sm-3">Hop Limit</dt>
+            <dd class="col-sm-3">3, 4, or 5</dd>
+            <dd class="col-sm-6">Prefer a lower hop limit if you know there are lots of nodes near you.</dd>
+
+            <dt class="col-sm-3">Transmit Enabled</dt>
+            <dd class="col-sm-9">On</dd>
+
+            <dt class="col-sm-3">Transmit Power</dt>
+            <dd class="col-sm-3">30</dd>
+            <dd class="col-sm-6">Your device will adjust to it's max transmit capability.</dd>
+
+            <dt class="col-sm-3">Boosted RX Gain</dt>
+            <dd class="col-sm-9">On</dd>
+
+            <dt class="col-sm-3">OK to MQTT</dt>
+            <dd class="col-sm-3">On or Off</dd>
+            <dd class="col-sm-6">If you want your node to appear on the public maps, this needs to be On.</dd>
+          </dl>
+          <p><strong>Click:</strong> Save</p>
+
+          <div class="alert alert-warning d-flex align-items-start gap-2">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <div>
+              If you set a hop limit above 3, be prepared to eventually adjust it as the mesh grows and more
+              congestion appears.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-4">
+      <div class="card">
+        <div class="card-body">
+
+          <h2 class="h5 mb-2">Step 6: MQTT / Showing Up on Public Maps</h2>
+
+          <div class="alert alert-warning d-flex align-items-start gap-2">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <div>
+              <p>MQTT is a risky feature to enable, and misconfigured devices can flood their local LoRa mesh with messages. Even a minimal amount of MQTT traffic can severly impact other user's ability to use the mesh.</p>
+              <p>This step will present a number of options to safely configure your device for MQTT. For a given device, choose one option and follow it <em>exactly</em>. Do not mix-and-match settings from multiple options.</p>
+            </div>
+          </div>
+
+          <div class="accordion" id="mqttAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed d-flex align-items-start gap-2" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#mqttPublicMaps">
+                  <i class="bi bi-geo-alt"></i>
+                  <strong>I just want to show up on the Public Maps</strong>
+                </button>
+              </h2>
+              <div id="mqttPublicMaps" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <p class="mb-3">
+                    If your client is near an existing MQTT gateway, you do not need to directly connect your client to MQTT. If you are not near an MQTT gateway, you will need to set one up.
+                  </p>
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+                    Radio Config → Lora</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Ok to MQTT</dt>
+                    <dd class="col-sm-3">On</dd>
+                    <dd class="col-sm-5">This tells other MQTT gateways that your messages are OK to forward to MQTT.</dd>
+                  </dl>
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+                    Channel Config → Primary</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Uplink</dt>
+                    <dd class="col-sm-8">Off</dd>
+
+                    <dt class="col-sm-4">Downlink</dt>
+                    <dd class="col-sm-8">Off</dd>
+
+                    <dt class="col-sm-4">Location</dt>
+                    <dd class="col-sm-8">On</dd>
+        
+                    <dt class="col-sm-4">Precise Location</dt>
+                    <dd class="col-sm-8">Off</dd>
+        
+                    <dt class="col-sm-4">Precision</dt>
+                    <dd class="col-sm-3">700m or wider</dd>
+                    <dd class="col-sm-5">Using a location precision smaller than 700m will prevent you from showing up on the public maps. This is a safety feature to protect your privacy.</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed d-flex align-items-start gap-2" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#mqttGateway">
+                  <i class="bi bi-router"></i>
+                  <strong>I want to run an MQTT gateway</strong>
+                </button>
+              </h2>
+              <div id="mqttGateway" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <p class="mb-3">
+                    An MQTT gateway is a device that forwards messages from it's local LoRA mesh to an MQTT broker. It listens for all OK-to-MQTT messages, and forwards them. This is an advanced option that is safe for most device roles.
+                  </p>
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+                    Radio Config → Device</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Role</dt>
+                    <dd class="col-sm-8">any</dd>
+                  </dl>
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+                    Radio Config → Lora</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Ok to MQTT</dt>
+                    <dd class="col-sm-8">On</dd>
+                  </dl>
+
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config → Module Config → MQTT</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Enabled</dt>
+                    <dd class="col-sm-8">On</dd>
+
+                    <dt class="col-sm-4">Server Address</dt>
+                    <dd class="col-sm-8">mqtt.vbmesh.net</dd>
+
+                    <dt class="col-sm-4">Username</dt>
+                    <dd class="col-sm-8">meshdev</dd>
+
+                    <dt class="col-sm-4">Password</dt>
+                    <dd class="col-sm-8">large4cats</dd>
+
+                    <dt class="col-sm-4">Encryption Enabled</dt>
+                    <dd class="col-sm-8">On</dd>
+
+                    <dt class="col-sm-4">JSON Enaled</dt>
+                    <dd class="col-sm-8">On or Off</dd>
+
+                    <dt class="col-sm-4">TLS Enaled</dt>
+                    <dd class="col-sm-8">Off</dd>
+
+                    <dt class="col-sm-4">Root Topic</dt>
+                    <dd class="col-sm-8">msh/US/VA/VBMesh</dd>
+
+                    <dt class="col-sm-4">MQTT Client Proxy Enabled</dt>
+                    <dd class="col-sm-3">On or Off</dd>
+                    <dd class="col-sm-5">Enable this if your device's connection to the Internet is through your phone.</dd>
+
+                    <dt class="col-sm-4">Map Reporting</dt>
+                    <dd class="col-sm-3">On or Off</dd>
+                    <dd class="col-sm-5">Only enable this if you want your MQTT gateway to appear on public maps.</dd>
+                  </dl>
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+                    Channel Config → Primary</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Uplink</dt>
+                    <dd class="col-sm-3">On</dd>
+                    <dd class="col-sm-5">This is the key setting that allows your device to forward to the MQTT broker</dd>
+
+                    <dt class="col-sm-4">Downlink</dt>
+                    <dd class="col-sm-3">Off</dd>
+                    <dd class="col-sm-3">This setting must be off. Check it multiple times.</dd>
+
+                    <dt class="col-sm-4">Location</dt>
+                    <dd class="col-sm-8">On or Off</dd>
+        
+                    <dt class="col-sm-4">Precise Location</dt>
+                    <dd class="col-sm-8">Off</dd>
+        
+                    <dt class="col-sm-4">Precision</dt>
+                    <dd class="col-sm-3">700m or wider</dd>
+                    <dd class="col-sm-5">Using a location precision smaller than 700m will prevent you from showing up on the public maps. This is a safety feature to protect your privacy.</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed d-flex align-items-start gap-2" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#mqttClient">
+                  <i class="bi bi-phone"></i>
+                  <strong>I want a full MQTT client</strong>
+                </button>
+              </h2>
+              <div id="mqttClient" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <div class="alert alert-danger d-flex align-items-start gap-2">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <div>
+                      This is the most dangerous option, misconfiguration here can impact all devices on your local LoRa mesh.
+                    </div>
+                  </div>
+                  <p class="mb-3">
+                    In order to not only send, but also view MQTT traffic, you will need to enable MQTT downlink. This instructs your device to treat MQTT messages as routable, and if you are in a role other than CLIENT_MUTE, your device will route MQTT messages onto the LoRa mesh. This can create a ton of congestion and degrade the service for every device around you.
+                  </p>
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+                    Radio Config → Device</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Role</dt>
+                    <dd class="col-sm-3">CLIENT_MUTE</dd>
+                    <dd class="col-sm-5">This is the only safe role for a full MQTT client. Any other role will leak MQTT traffic onto LoRa.</dd>
+                  </dl>
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+                    Radio Config → Lora</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Ok to MQTT</dt>
+                    <dd class="col-sm-8">On</dd>
+                  </dl>
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config → Module Config → MQTT</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Enabled</dt>
+                    <dd class="col-sm-8">On</dd>
+
+                    <dt class="col-sm-4">Server Address</dt>
+                    <dd class="col-sm-8">mqtt.vbmesh.net</dd>
+
+                    <dt class="col-sm-4">Username</dt>
+                    <dd class="col-sm-8">meshdev</dd>
+
+                    <dt class="col-sm-4">Password</dt>
+                    <dd class="col-sm-8">large4cats</dd>
+
+                    <dt class="col-sm-4">Encryption Enabled</dt>
+                    <dd class="col-sm-8">On</dd>
+
+                    <dt class="col-sm-4">JSON Enaled</dt>
+                    <dd class="col-sm-8">On or Off</dd>
+
+                    <dt class="col-sm-4">TLS Enaled</dt>
+                    <dd class="col-sm-8">Off</dd>
+
+                    <dt class="col-sm-4">Root Topic</dt>
+                    <dd class="col-sm-8">msh/US/VA/VBMesh</dd>
+
+                    <dt class="col-sm-4">MQTT Client Proxy Enabled</dt>
+                    <dd class="col-sm-3">On or Off</dd>
+                    <dd class="col-sm-5">Enable this if your device's connection to the Internet is through your phone.</dd>
+
+                    <dt class="col-sm-4">Map Reporting</dt>
+                    <dd class="col-sm-3">On or Off</dd>
+                    <dd class="col-sm-5">Only enable this if you want your MQTT gateway to appear on public maps.</dd>
+                  </dl>
+                  <p class="node-menu-nav"><strong>Navigate:</strong> Config →
+                    Channel Config → Primary</p>
+                  <dl class="row">
+                    <dt class="col-sm-4">Uplink</dt>
+                    <dd class="col-sm-8">On</dd>
+
+                    <dt class="col-sm-4">Downlink</dt>
+                    <dd class="col-sm-3">On</dd>
+                    <dd class="col-sm-3">Be sure your device role is CLIENT_MUTE. Check it multiple times.</dd>
+
+                    <dt class="col-sm-4">Location</dt>
+                    <dd class="col-sm-8">On or Off</dd>
+        
+                    <dt class="col-sm-4">Precise Location</dt>
+                    <dd class="col-sm-8">Off</dd>
+        
+                    <dt class="col-sm-4">Precision</dt>
+                    <dd class="col-sm-3">700m or wider</dd>
+                    <dd class="col-sm-5">Using a location precision smaller than 700m will prevent you from showing up on the public maps. This is a safety feature to protect your privacy.</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+</div>
