@@ -4,3 +4,4 @@ vendor/
 .jekyll-cache/
 .sass-cache/
 *.gem
+.ruby-version
